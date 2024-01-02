@@ -8,7 +8,6 @@ export function FunctionalApp() {
 	const [incorrectCount, setIncorrectCount] = useState(0);
 	const [correctCount, setCorrectCount] = useState(0);
 	const [answersLeft] = useState(["trout", "salmon", "tuna", "shark"]);
-
 	const totalCount = correctCount + incorrectCount;
 	const finalScorePage = totalCount < answersLeft.length ? false : true;
 	return (

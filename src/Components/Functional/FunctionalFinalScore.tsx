@@ -1,10 +1,8 @@
 import * as React from "react";
 import "./styles/final-score.css";
-type finalScore = {
-	correctCount: number;
-	incorrectCount: number;
-};
-export const FunctionalFinalScore: React.FC<finalScore> = ({
+import { FinalScoreProps } from "../../types";
+
+export const FunctionalFinalScore: React.FC<FinalScoreProps> = ({
 	correctCount,
 	incorrectCount,
 }) => {

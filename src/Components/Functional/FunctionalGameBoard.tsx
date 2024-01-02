@@ -3,7 +3,7 @@ import "./styles/game-board.css";
 import { Images } from "../../assets/Images";
 import * as React from "react";
 import { useState } from "react";
-import { FunctionalGameBoardProps } from "../../types";
+import { GameBoardProps } from "../../types";
 
 const initialFishes = [
 	{
@@ -24,7 +24,7 @@ const initialFishes = [
 	},
 ];
 
-export const FunctionalGameBoard: React.FC<FunctionalGameBoardProps> = ({
+export const FunctionalGameBoard: React.FC<GameBoardProps> = ({
 	incorrectCount,
 	correctCount,
 	answersLeft,

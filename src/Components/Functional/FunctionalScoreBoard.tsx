@@ -1,12 +1,8 @@
 import * as React from "react";
 import "./styles/score-board.css";
+import { ScoreBoardProps } from "../../types";
 
-type FunctionalScoreBoardProps = {
-	incorrectCount: number;
-	correctCount: number;
-	answersLeft: string[];
-};
-export const FunctionalScoreBoard: React.FC<FunctionalScoreBoardProps> = ({
+export const FunctionalScoreBoard: React.FC<ScoreBoardProps> = ({
 	incorrectCount,
 	correctCount,
 	answersLeft,
