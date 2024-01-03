@@ -3,25 +3,7 @@ import "./styles/game-board.css";
 import { Images } from "../../assets/Images";
 import { GameBoardProps } from "../../types";
 import * as React from "react";
-
-const initialFishes = [
-	{
-		name: "trout",
-		url: Images.trout,
-	},
-	{
-		name: "salmon",
-		url: Images.salmon,
-	},
-	{
-		name: "tuna",
-		url: Images.tuna,
-	},
-	{
-		name: "shark",
-		url: Images.shark,
-	},
-];
+import { initialFishes } from "./ClassApp";
 
 export class ClassGameBoard extends Component<GameBoardProps> {
 	state = {
@@ -30,20 +12,13 @@ export class ClassGameBoard extends Component<GameBoardProps> {
 	setFishGuess = (guess: string) => {
 		this.setState({ fishGuess: guess });
 	};
+	handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault();
 
-	testAnswer = () => {
-		if (
-			this.state.fishGuess.toLowerCase() ===
-			this.props.answersLeft[this.props.total].toLowerCase()
-		) {
-			this.props.setCorrectCount(this.props.correctCount + 1);
-		} else {
-			this.props.setIncorrectCount(this.props.incorrectCount + 1);
-		}
-
+		this.props.handleAnswer(this.state.fishGuess);
 		this.setFishGuess("");
-		this.props.setTotal(this.props.total);
 	};
+
 	render() {
 		return (
 			<>
@@ -54,12 +29,7 @@ export class ClassGameBoard extends Component<GameBoardProps> {
 							alt={initialFishes[this.props.total].name}
 						/>
 					</div>
-					<form
-						id="fish-guess-form"
-						onSubmit={(e) => {
-							e.preventDefault();
-							this.testAnswer();
-						}}>
+					<form id="fish-guess-form" onSubmit={this.handleSubmit}>
 						<label htmlFor="fish-guess">What kind of fish is this?</label>
 						<input
 							type="text"

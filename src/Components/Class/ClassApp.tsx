@@ -1,32 +1,52 @@
 import * as React from "react";
 import { Component } from "react";
+import { Images } from "../../assets/Images";
 import { ClassScoreBoard } from "./ClassScoreBoard";
 import { ClassGameBoard } from "./ClassGameBoard";
 import { ClassFinalScore } from "./ClassFinalScore";
+
+export const initialFishes = [
+	{
+		name: "trout",
+		url: Images.trout,
+	},
+	{
+		name: "salmon",
+		url: Images.salmon,
+	},
+	{
+		name: "tuna",
+		url: Images.tuna,
+	},
+	{
+		name: "shark",
+		url: Images.shark,
+	},
+];
 
 export class ClassApp extends Component {
 	state = {
 		incorrectCount: 0,
 		correctCount: 0,
-		answersLeft: ["trout", "salmon", "tuna", "shark"],
-		total: 0,
 	};
 
-	setIncorrectCount = (newCount: number) => {
-		this.setState({ incorrectCount: newCount });
-	};
+	answersLeft = initialFishes.map((fish) => fish.name);
 
-	setCorrectCount = (newCount: number) => {
-		this.setState({ correctCount: newCount });
-	};
-	setTotal = (total: number) => {
-		this.setState({ total: total + 1 });
+	testAnswer = (answer: string) => {
+		const currentFish =
+			initialFishes[this.state.correctCount + this.state.incorrectCount];
+		const isCorrect = currentFish.name.toLowerCase() === answer.toLowerCase();
+
+		this.setState(() => ({
+			correctCount: this.state.correctCount + (isCorrect ? 1 : 0),
+			incorrectCount: this.state.incorrectCount + (isCorrect ? 0 : 1),
+		}));
 	};
 
 	render() {
-		const { incorrectCount, correctCount, answersLeft } = this.state;
+		const { correctCount, incorrectCount } = this.state;
 		const totalCount = correctCount + incorrectCount;
-		const finalScorePage = totalCount >= answersLeft.length;
+		const finalScorePage = totalCount >= initialFishes.length;
 
 		return (
 			<>
@@ -34,26 +54,16 @@ export class ClassApp extends Component {
 					<ClassScoreBoard
 						incorrectCount={incorrectCount}
 						correctCount={correctCount}
-						answersLeft={answersLeft}
-						total={this.state.total}
+						answersLeft={this.answersLeft}
 					/>
 				)}
 				{!finalScorePage && (
-					<ClassGameBoard
-						incorrectCount={incorrectCount}
-						correctCount={correctCount}
-						answersLeft={answersLeft}
-						setIncorrectCount={this.setIncorrectCount}
-						setCorrectCount={this.setCorrectCount}
-						total={this.state.total}
-						setTotal={this.setTotal}
-					/>
+					<ClassGameBoard total={totalCount} handleAnswer={this.testAnswer} />
 				)}
 				{finalScorePage && (
 					<ClassFinalScore
 						correctCount={correctCount}
-						incorrectCount={incorrectCount}
-						total={this.state.total}
+						totalCount={initialFishes.length}
 					/>
 				)}
 			</>

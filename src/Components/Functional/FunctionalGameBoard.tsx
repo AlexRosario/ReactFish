@@ -1,45 +1,17 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
 import "./styles/game-board.css";
-import { Images } from "../../assets/Images";
 import * as React from "react";
 import { useState } from "react";
 import { GameBoardProps } from "../../types";
-
-const initialFishes = [
-	{
-		name: "trout",
-		url: Images.trout,
-	},
-	{
-		name: "salmon",
-		url: Images.salmon,
-	},
-	{
-		name: "tuna",
-		url: Images.tuna,
-	},
-	{
-		name: "shark",
-		url: Images.shark,
-	},
-];
+import { initialFishes } from "./FunctionalApp";
 
 export const FunctionalGameBoard: React.FC<GameBoardProps> = ({
-	incorrectCount,
-	correctCount,
-	answersLeft,
-	setIncorrectCount,
-	setCorrectCount,
+	handleAnswer,
+	total,
 }) => {
 	const [fishGuess, setFishGuess] = useState("");
-	const total = correctCount + incorrectCount;
-	const testAnswer = () => {
-		if (fishGuess.toLowerCase() === answersLeft[total].toLowerCase()) {
-			setCorrectCount(correctCount + 1);
-		} else {
-			setIncorrectCount(incorrectCount + 1);
-		}
-
+	const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault();
+		handleAnswer(fishGuess);
 		setFishGuess("");
 	};
 
@@ -48,12 +20,7 @@ export const FunctionalGameBoard: React.FC<GameBoardProps> = ({
 			<div id="fish-container">
 				<img src={initialFishes[total].url} alt={initialFishes[total].name} />
 			</div>
-			<form
-				id="fish-guess-form"
-				onSubmit={(e) => {
-					e.preventDefault();
-					testAnswer();
-				}}>
+			<form id="fish-guess-form" onSubmit={handleSubmit}>
 				<label htmlFor="fish-guess">What kind of fish is this?</label>
 				<input
 					type="text"

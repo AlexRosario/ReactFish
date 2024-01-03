@@ -1,23 +1,16 @@
 export type GameBoardProps = {
-	incorrectCount: number;
-	correctCount: number;
-	answersLeft: string[];
-	setIncorrectCount: (incorrectCount: number) => void;
-	setCorrectCount: (correctCount: number) => void;
+	handleAnswer: (answer: string) => void;
 	total: number;
-	setTotal: (count: number) => void;
 };
 
 export type ScoreBoardProps = {
 	incorrectCount: number;
 	correctCount: number;
 	answersLeft: string[];
-	total: number;
 };
 
 export type FinalScoreProps = {
 	correctCount: number;
-	incorrectCount: number;
-	total: number;
+	totalCount: number;
 };
 // If you have any types that are SHARED BY MANY COMPONENTS,put them here
